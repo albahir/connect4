@@ -1,0 +1,5 @@
+#pragma once
+
+#define ESTADOSLOT_H
+
+enum class ESTADO_SLOT { VACIO = 0, JUGADOR1, JUGADOR2, POSIBLE1, POSIBLE2 };
