@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CUSTOMIZE_BUILD ON) # Para activar las opciones personalizadas de raylib
 set(GLFW_BUILD_WAYLAND OFF) # Build the bundled GLFW with Wayland support
 set(GLFW_BUILD_X11 ON)
-set(OPENGL_VERSION OFF) # Mi pc con graficos integrados no pasa de esa version mi loco
+set(OPENGL_VERSION 2.1) # Mi pc con graficos integrados no pasa de esa version mi loco
 
 # Parametros para raylib
 
@@ -15,9 +15,9 @@ set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # no se construyen los ejemeplos
 set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # ni los juegos
 
 #add_subdirectory(libs/raylib)
-find_package(raylib QUIET)
+find_package(raylib QUIET REQUIRED)
 
-add_executable(${PROJECT_NAME} src/model/ClaseEntrada.cpp src/view/Principal.cpp src/view/Boton.cpp src/view/Menu.cpp src/model/GameState.cpp src/view/PantallaPrincipal.cpp src/view/PantallaModos.cpp)
+add_executable(${PROJECT_NAME} src/model/ClaseEntrada.cpp src/view/Principal.cpp src/view/Boton.cpp src/view/Menu.cpp src/model/GameState.cpp src/view/PantallaPrincipal.cpp src/view/PantallaModos.cpp src/view/PantallaModalidad.cpp src/view/PantallaJuego.cpp src/view/Tablero.cpp src/model/Partida.cpp src/model/AI.cpp src/model/Jugador.cpp)
 target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 

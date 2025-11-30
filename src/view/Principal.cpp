@@ -1,6 +1,8 @@
 #include "../../include/Principal.h"
 #include "../../include/Pantalla.h"
+#include "../../include/PantallaJuego.h"
 #include "../../include/PantallaPrincipal.h"
+#include "../../include/PantallaSeleccionModalidad.h"
 #include "../../include/PantallaSeleccionModo.h"
 #include "raylib.h"
 #include <iostream>
@@ -16,6 +18,7 @@ typedef struct LimitesBotonesPrincipal {
 
 Principal::Principal(GameState *globalState) {
   this->globalState = globalState;
+  this->partida = nullptr;
 }
 
 void Principal::IniciarPantallaPrincipal() {
@@ -48,40 +51,10 @@ void Principal::IniciarPantallaPrincipal() {
   float screenWidth = GetScreenWidth();
   float screenHeight = GetScreenHeight();
 
-  // Calcular y asignar posicion de botones con respecto a pantalla
-  LimitesBotonesPrincipal limitesBotones = {
-      // Modalidad: JugadorVSJugador
-      {.x = (screenWidth / 10) * 6,
-       .y = screenHeight / 2,
-       .width = 340,
-       .height = 60},
-      // Modalidad: JugadorVSIa
-      {.x = screenWidth / 10 * 6,
-       .y = screenHeight / 2 + 100,
-       .width = 340,
-       .height = 60},
-      // Modalidad: IaVSIa
-      {.x = screenWidth / 10 * 6,
-       .y = screenHeight / 2 + 200,
-       .width = 340,
-       .height = 60},
-  };
-
-  /*
-  Tengo que migrar esto a una nueva subclase de Pantalla
-  menu.agregarBoton(
-      Boton(limitesBotones.JugadorVSJugador, "Jugador vs Jugador", BLUE,
-            [this]() { this->globalState->setModalidad(GameState::HVSH); }));
-  menu.agregarBoton(
-      Boton(limitesBotones.JugadorVSIa, "Jugador vs Ia", BLUE,
-            [this]() { this->globalState->setModalidad(GameState::HVSIA); }));
-  menu.agregarBoton(Boton(limitesBotones.IaVSIa, "Ia vs Ia", BLUE, [this]() {
-    this->globalState->setModalidad(GameState::IAVSIA);
-  }));
-*/
   Pantalla *pantallaActual = nullptr;
 
   while (!WindowShouldClose() && !this->globalState->getSalirDelJuego()) {
+
     // Update
     switch (this->globalState->getPantallaActual()) {
     case GameState::PANTALLA_PRINCIPAL:
@@ -93,8 +66,13 @@ void Principal::IniciarPantallaPrincipal() {
           new PantallaSeleccionModo(globalState, screenWidth, screenHeight);
       break;
     case GameState::SELECCION_MODALIDAD:;
+      pantallaActual = new PantallaSeleccionModalidad(globalState, screenWidth,
+                                                      screenHeight);
       break;
-    case GameState::PARTIDA:;
+    case GameState::PARTIDA:
+      pantallaActual =
+          new PantallaJuego(globalState, screenWidth, screenHeight);
+
       break;
     }
 
@@ -110,3 +88,5 @@ void Principal::IniciarPantallaPrincipal() {
 }
 
 void Principal::CerrarPantallaPrincipal() { CloseWindow(); }
+
+void Principal::setPartida(Partida *partida) { this->partida = partida; }

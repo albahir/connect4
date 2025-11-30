@@ -11,6 +11,10 @@ PantallaPrincipal::PantallaPrincipal(GameState *globalState, float screenWidth,
                                      float screenHeight) {
   this->globalState = globalState;
 
+  this->globalState->setPartidaActual(nullptr);
+  this->globalState->setModoDeJuego(MODODEJUEGO::NINGUNO);
+  this->globalState->setModalidad(MODALIDAD::NINGUNA);
+
   static const float fontSize = 60;
   BtnsMenuPrincipal dimension = {
 
@@ -28,7 +32,7 @@ PantallaPrincipal::PantallaPrincipal(GameState *globalState, float screenWidth,
   };
 
   this->menu.agregarBoton(
-      Boton(dimension.btnIniciar, "Iniciar Partida", BLUE, [this]() {
+      Boton(dimension.btnIniciar, "Iniciar", BLUE, [this]() {
         this->globalState->setPantallaActual(GameState::SELECCION_MODO);
         std::cout << "Iniciar Partida 1" << std::endl;
       }));

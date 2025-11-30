@@ -1,6 +1,8 @@
 #pragma once
 
 #define GAMESTATE_H
+#include "Modalidad.h"
+#include "ModoDeJuego.h"
 
 #include "Partida.h"
 
@@ -8,8 +10,6 @@ class GameState {
 private:
 public:
   GameState();
-  enum MODODEJUEGO { NINGUNO = 0, PRIMEROA4, ACUMULADO };
-  enum MODALIDAD { NINGUNA = 0, HVSH, HVSIA, IAVSIA };
   enum PANTALLA {
     PANTALLA_PRINCIPAL = 0,
     SELECCION_MODO,
@@ -19,8 +19,11 @@ public:
 
   // Setters Getters
   void setPartidaActual(Partida *nuevaPartida);
+  Partida *getPartidaActual();
   void setModoDeJuego(MODODEJUEGO modo);
+  MODODEJUEGO getModoDeJuego();
   void setModalidad(MODALIDAD modalidad);
+  MODALIDAD getModalidad();
   void setPantallaActual(PANTALLA pantallaActual);
   PANTALLA getPantallaActual();
   void setSalirDelJuego(bool salirDeJuego);

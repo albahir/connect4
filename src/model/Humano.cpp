@@ -2,6 +2,6 @@
 
 #include <raylib.h>
 
-Humano::Humano(Color colorFicha) : Jugador(colorFicha) {};
+Humano::Humano(Color colorFicha) : Jugador() {};
 
 void Humano::colocarFicha(int fila, int columna) {}

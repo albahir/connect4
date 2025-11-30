@@ -2,7 +2,4 @@
 
 #define MODODEJUEGO_H
 
-class ModoDeJuego {
-private:
-public:
-};
+enum MODODEJUEGO { NINGUNO = 0, PRIMEROA4, ACUMULADO };

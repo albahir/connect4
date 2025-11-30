@@ -9,16 +9,20 @@ GameState::GameState() {
 }
 
 void GameState::setPartidaActual(Partida *nuevaPartida) {
-  if (this->partidaActual != nullptr && nuevaPartida != nullptr) {
-    this->partidaActual = nuevaPartida;
-  }
+  this->partidaActual = nuevaPartida;
 }
 
+Partida *GameState::getPartidaActual() { return this->partidaActual; }
+
 void GameState::setModoDeJuego(MODODEJUEGO modo) { this->modo = modo; };
+MODODEJUEGO GameState::getModoDeJuego() { return this->modo; };
 
 void GameState::setModalidad(MODALIDAD modalidad) {
   this->modalidad = modalidad;
 };
+
+MODALIDAD GameState::getModalidad() { return this->modalidad; };
+
 void GameState::setPantallaActual(PANTALLA pantallaActual) {
   this->pantallaActual = pantallaActual;
 };

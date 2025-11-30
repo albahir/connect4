@@ -25,11 +25,13 @@ PantallaSeleccionModo::PantallaSeleccionModo(GameState *globalState,
 
   this->menu.agregarBoton(
       Boton(dimension.btnPrimeroA4, "Primero a 4", BLUE, [this]() {
-        this->globalState->setModoDeJuego(GameState::PRIMEROA4);
+        this->globalState->setModoDeJuego(MODODEJUEGO::PRIMEROA4);
+        this->globalState->setPantallaActual(GameState::SELECCION_MODALIDAD);
       }));
   this->menu.agregarBoton(
       Boton(dimension.btnAcumulado, "Modo Acumulado", BLUE, [this]() {
-        this->globalState->setModoDeJuego(GameState::ACUMULADO);
+        this->globalState->setModoDeJuego(MODODEJUEGO::ACUMULADO);
+        this->globalState->setPantallaActual(GameState::SELECCION_MODALIDAD);
       }));
 };
 
