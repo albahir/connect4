@@ -30,6 +30,29 @@ PantallaPrincipal::PantallaPrincipal(GameState *globalState, float screenWidth,
        .height = 60},
 
   };
+  Rectangle btnCargarRect = {
+       (screenWidth - 300) / 2, // Centrado
+       screenHeight - 140,      // Un poco más arriba de los otros
+       300,
+       60
+  };
+  this->menu.agregarBoton(Boton(btnCargarRect, "Cargar Partida", ORANGE, [this, screenWidth, screenHeight]() {
+      
+      // Intentamos cargar
+      Partida* partidaRecuperada = Partida::cargarPartida("savegame.txt", screenWidth, screenHeight);
+      
+      if (partidaRecuperada != nullptr) {
+          // Si existe, configuramos el estado global
+          this->globalState->setModoDeJuego(partidaRecuperada->getModoDeJuego()); // Necesitas un getter para esto o acceder a modo si fuera publico
+          this->globalState->setModalidad(partidaRecuperada->getModalidad()); // Igual aqui
+          
+          this->globalState->setPartidaActual(partidaRecuperada);
+          this->globalState->setPantallaActual(GameState::PARTIDA);
+          std::cout << "Partida recuperada e iniciada" << std::endl;
+      } else {
+          std::cout << "No hay partida guardada para cargar" << std::endl;
+      }
+  }));
 
   this->menu.agregarBoton(
       Boton(dimension.btnIniciar, "Iniciar", BLUE, [this]() {

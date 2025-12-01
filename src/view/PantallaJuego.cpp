@@ -10,6 +10,20 @@ PantallaJuego::PantallaJuego(GameState *globalState, float screenWidth,
   this->ganador = false;
   this->screenWidth = screenWidth;
   this->screenHeight = screenHeight;
+
+  Rectangle btnGuardarRect = { 20, 20, 150, 40 }; // Esquina superior izquierda
+
+    this->menu.agregarBoton(Boton(btnGuardarRect, "Guardar", GREEN, [this]() {
+        if (this->globalState->getPartidaActual() != nullptr) {
+            this->globalState->getPartidaActual()->guardarPartida("savegame.txt");
+        }
+    }));
+
+    // 2. AGREGAR BOTÓN SALIR AL MENÚ 
+    Rectangle btnSalirRect = { screenWidth - 170, 20, 150, 40 };
+    this->menu.agregarBoton(Boton(btnSalirRect, "Menu", RED, [this]() {
+         this->globalState->setPantallaActual(GameState::PANTALLA_PRINCIPAL);
+    }));
 };
 
 // PantallaJuego::PantallaJuego(float screenWidth, float screenHeight) {};
@@ -20,6 +34,7 @@ void PantallaJuego::dibujarPantalla(float screenWidth, float screenHeight) {
   static Font defaultFont = GetFontDefault();
   static const char *gameTitle = "Juego en marcha";
   static const float spacing = 3.5f;
+  menu.dibujarBotones();
 
   Vector2 titleWidth =
       (MeasureTextEx(defaultFont, gameTitle, fontSize, spacing));

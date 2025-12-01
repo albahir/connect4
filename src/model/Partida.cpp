@@ -296,3 +296,77 @@ bool Partida::verificarVictoria(ESTADO_SLOT jugador) {
   }
   return false;
 };
+
+// 1. IMPLEMENTACIÓN DE GUARDAR
+void Partida::guardarPartida(const std::string& nombreArchivo) {
+    std::ofstream archivo(nombreArchivo);
+
+    if (archivo.is_open()) {
+        // Guardamos configuración básica
+        archivo << (int)this->modo << "\n";
+        archivo << (int)this->modalidad << "\n";
+        archivo << this->turno << "\n";
+        
+        // Guardamos marcador
+        archivo << this->marcador.puntosJ1 << "\n";
+        archivo << this->marcador.puntosJ2 << "\n";
+
+        // Guardamos la matriz (El Tablero)
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                archivo << (int)this->parrilla[i][j] << " ";
+            }
+            archivo << "\n";
+        }
+        
+        archivo.close();
+        std::cout << "Partida guardada exitosamente en " << nombreArchivo << std::endl;
+    } else {
+        std::cerr << "Error al abrir el archivo para guardar." << std::endl;
+    }
+}
+
+// 2. IMPLEMENTACIÓN DE CARGAR (ESTÁTICA)
+Partida* Partida::cargarPartida(const std::string& nombreArchivo, float screenWidth, float screenHeight) {
+    std::ifstream archivo(nombreArchivo);
+    
+    if (!archivo.is_open()) {
+        std::cerr << "No se encontro archivo de guardado." << std::endl;
+        return nullptr;
+    }
+
+    int modoInt, modalidadInt, turno, p1, p2;
+    
+    // Leemos cabeceras
+    archivo >> modoInt;
+    archivo >> modalidadInt;
+    archivo >> turno;
+    archivo >> p1;
+    archivo >> p2;
+
+    // Convertimos enteros a Enums
+    MODODEJUEGO modo = static_cast<MODODEJUEGO>(modoInt);
+    MODALIDAD modalidad = static_cast<MODALIDAD>(modalidadInt);
+
+    // Creamos una NUEVA instancia con los datos leídos
+    Partida* partidaCargada = new Partida(modo, modalidad, screenWidth, screenHeight);
+
+    // Sobreescribimos el estado actual con el guardado
+    partidaCargada->turno = turno;
+    partidaCargada->marcador.puntosJ1 = p1;
+    partidaCargada->marcador.puntosJ2 = p2;
+
+    // Rellenamos el tablero
+    int estadoSlotInt;
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 7; j++) {
+            archivo >> estadoSlotInt;
+            partidaCargada->parrilla[i][j] = static_cast<ESTADO_SLOT>(estadoSlotInt);
+        }
+    }
+
+    archivo.close();
+    std::cout << "Partida cargada exitosamente." << std::endl;
+    
+    return partidaCargada;
+}

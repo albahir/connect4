@@ -9,6 +9,8 @@
 #include "Tablero.h"
 #include <raylib.h>
 #include <vector>
+#include <fstream> 
+#include <string>
 
 typedef struct {
   int puntosJ1;
@@ -24,6 +26,8 @@ public:
   int getTurno();
 
   // Metodos
+  MODODEJUEGO getModoDeJuego() { return this->modo; }
+MODALIDAD getModalidad() { return this->modalidad; }
   const ESTADO_SLOT (*getParrilla() const)[7];
   ESTADO_SLOT (*getParrilla())[7];
   Rectangle getLimitesTablero();
@@ -38,7 +42,8 @@ public:
   bool verificarVictoria(ESTADO_SLOT jugador);
   bool existeGanador();
   void aumentarMarcador();
-
+  void guardarPartida(const std::string& nombreArchivo);
+  static Partida* cargarPartida(const std::string& nombreArchivo, float screenWidth, float screenHeight);
 private:
   Tablero tablero;
   MODODEJUEGO modo;
