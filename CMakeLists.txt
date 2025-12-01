@@ -17,7 +17,7 @@ set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # ni los juegos
 #add_subdirectory(libs/raylib)
 find_package(raylib QUIET REQUIRED)
 
-add_executable(${PROJECT_NAME} src/model/ClaseEntrada.cpp src/view/Principal.cpp src/view/Boton.cpp src/view/Menu.cpp src/model/GameState.cpp src/view/PantallaPrincipal.cpp src/view/PantallaModos.cpp src/view/PantallaModalidad.cpp src/view/PantallaJuego.cpp src/view/Tablero.cpp src/model/Partida.cpp src/model/AI.cpp src/model/Jugador.cpp)
+add_executable(${PROJECT_NAME} src/model/ClaseEntrada.cpp src/view/Principal.cpp src/view/Boton.cpp src/view/Menu.cpp src/model/GameState.cpp src/view/PantallaPrincipal.cpp src/view/PantallaModos.cpp src/view/PantallaModalidad.cpp src/view/PantallaJuego.cpp src/view/Tablero.cpp src/model/Partida.cpp src/model/AI.cpp src/model/Jugador.cpp src/data/PartidaGuardada.cpp src/view/PantallaHistorial.cpp)
 target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 

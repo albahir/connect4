@@ -1,5 +1,7 @@
 #pragma once
 
+#include "PartidaGuardada.h"
+#include <vector>
 #define GAMESTATE_H
 #include "Modalidad.h"
 #include "ModoDeJuego.h"
@@ -9,12 +11,13 @@
 class GameState {
 private:
 public:
-  GameState();
+  GameState(std::vector<PartidaGuardada> memoryCard);
   enum PANTALLA {
     PANTALLA_PRINCIPAL = 0,
     SELECCION_MODO,
     SELECCION_MODALIDAD,
-    PARTIDA
+    PARTIDA,
+    PANTALLA_HISTORIAL
   };
 
   // Setters Getters
@@ -28,6 +31,9 @@ public:
   PANTALLA getPantallaActual();
   void setSalirDelJuego(bool salirDeJuego);
   bool getSalirDelJuego();
+  std::vector<PartidaGuardada> getMemoryCard();
+  void pushMemoryCard(Partida *partidaAGuardar);
+  void printSavedGames();
 
 private:
   Partida *partidaActual;
@@ -35,4 +41,5 @@ private:
   MODALIDAD modalidad;
   PANTALLA pantallaActual;
   bool salirDelJuego;
+  std::vector<PartidaGuardada> memoryCard;
 };

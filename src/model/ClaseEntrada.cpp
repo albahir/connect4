@@ -1,12 +1,15 @@
 #include "../../include/Principal.h"
 #include <cstdlib>
 #include <raylib.h>
+#include <vector>
 
 class ClaseEntrada {};
 
 int main() {
 
-  GameState *globalState = new GameState();
+  std::vector<PartidaGuardada> memoryCard =
+      PartidaGuardada::deserializarPartida("partidasConnect4");
+  GameState *globalState = new GameState(memoryCard);
 
   Principal *principal = new Principal(globalState);
 

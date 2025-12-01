@@ -41,6 +41,11 @@ int Partida::getTurno() { return this->turno; }
 
 bool Partida::getJuegoFinalizado() { return this->juegoFinalizado; }
 
+Marcador Partida::getMarcador() { return this->marcador; }
+MODODEJUEGO Partida::getModoDeJuego() { return this->modo; }
+MODALIDAD Partida::getModalidad() { return this->modalidad; }
+bool Partida::getFinalizado() { return this->juegoFinalizado; }
+
 void Partida::aumentarMarcador() {
 
   bool conecto4 = this->turno % 2 != 0
