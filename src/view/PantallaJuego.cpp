@@ -64,6 +64,7 @@ void PantallaJuego::actualizarPantalla() {
 
   if (this->globalState->getPartidaActual()->getJuegoFinalizado()) {
     this->globalState->setPantallaActual(GameState::PANTALLA_PRINCIPAL);
+    this->globalState->pushMemoryCard(this->globalState->getPartidaActual());
     return;
   }
 

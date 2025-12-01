@@ -1,5 +1,6 @@
 #include "../../include/Principal.h"
 #include "../../include/Pantalla.h"
+#include "../../include/PantallaHistorial.h"
 #include "../../include/PantallaJuego.h"
 #include "../../include/PantallaPrincipal.h"
 #include "../../include/PantallaSeleccionModalidad.h"
@@ -72,6 +73,11 @@ void Principal::IniciarPantallaPrincipal() {
     case GameState::PARTIDA:
       pantallaActual =
           new PantallaJuego(globalState, screenWidth, screenHeight);
+
+      break;
+    case GameState::PANTALLA_HISTORIAL:
+      pantallaActual =
+          new PantallaHistorial(globalState, screenWidth, screenHeight);
 
       break;
     }

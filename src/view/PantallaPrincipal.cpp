@@ -5,6 +5,7 @@
 typedef struct {
   Rectangle btnIniciar;
   Rectangle btnSalir;
+  Rectangle btnHistorial;
 } BtnsMenuPrincipal;
 
 PantallaPrincipal::PantallaPrincipal(GameState *globalState, float screenWidth,
@@ -19,17 +20,19 @@ PantallaPrincipal::PantallaPrincipal(GameState *globalState, float screenWidth,
   BtnsMenuPrincipal dimension = {
 
       // Iniciar partida
-      {.x = ((float)MeasureText("Iniciar", fontSize) + 20),
-       .y = screenHeight - 70,
-       .width = 300,
-       .height = 60},
+      {.x = 20, .y = screenHeight - 70, .width = 250, .height = 60},
       // Salir del juego
-      {.x = (screenWidth - MeasureText("Salir", fontSize) * 3),
+      {.x = (float)((screenWidth - MeasureText("Salir", fontSize)) / 2) - 50.0f,
        .y = screenHeight - 70,
-       .width = 300,
+       .width = 250,
        .height = 60},
-
-  };
+      // Historial de partidas
+      {
+          .x = (screenWidth - MeasureText("Historial", fontSize)),
+          .y = screenHeight - 70,
+          .width = 250,
+          .height = 60,
+      }};
 
   this->menu.agregarBoton(
       Boton(dimension.btnIniciar, "Iniciar", BLUE, [this]() {
@@ -39,6 +42,10 @@ PantallaPrincipal::PantallaPrincipal(GameState *globalState, float screenWidth,
   this->menu.agregarBoton(Boton(dimension.btnSalir, "Salir", BLUE, [this]() {
     this->globalState->setSalirDelJuego(true);
   }));
+  this->menu.agregarBoton(
+      Boton(dimension.btnHistorial, "Historial", BLUE, [this]() {
+        this->globalState->setPantallaActual(GameState::PANTALLA_HISTORIAL);
+      }));
 }
 
 void PantallaPrincipal::dibujarPantalla(float screenWidth, float screenHeight) {
@@ -58,6 +65,8 @@ void PantallaPrincipal::dibujarPantalla(float screenWidth, float screenHeight) {
              {(float)titleLocationX, (float)titleLocationY}, fontSize, spacing,
              DARKGRAY);
   menu.dibujarBotones();
+
+  this->globalState->printSavedGames();
 }
 
 void PantallaPrincipal::actualizarPantalla() { this->menu.btnListeners(); }

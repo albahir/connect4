@@ -4,16 +4,12 @@
 #define PARTIDA_H
 #include "EstadoSlot.h"
 #include "Jugador.h"
+#include "Marcador.h"
 #include "Modalidad.h"
 #include "ModoDeJuego.h"
 #include "Tablero.h"
 #include <raylib.h>
 #include <vector>
-
-typedef struct {
-  int puntosJ1;
-  int puntosJ2;
-} Marcador;
 
 class Partida {
 public:
@@ -28,9 +24,12 @@ public:
   ESTADO_SLOT (*getParrilla())[7];
   Rectangle getLimitesTablero();
   bool getJuegoFinalizado();
+  Marcador getMarcador();
+  MODODEJUEGO getModoDeJuego();
+  MODALIDAD getModalidad();
+  bool getFinalizado();
   bool finalizarJuego();
   bool tableroLleno();
-  // Tablero::ESTADO_SLOT **getParrilla();
   void colocarFicha();
   bool slotDisponible();
   void actualizarTablero();
